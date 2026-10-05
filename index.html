@@ -30,6 +30,7 @@
           <a class="pill" href="#coffee">Найти свой кофе <span aria-hidden="true">↗</span></a>
         </div>
         <canvas class="coffee-vapor" aria-hidden="true"></canvas>
+        <p class="swipe-hint" hidden>Свайпните влево — познакомьтесь с нашим кофе <span aria-hidden="true">→</span></p>
         <div class="hero-note"><span class="little-star">✳</span><p>Москва, Красная площадь, д. 1<br>Каждый день · 10:00–23:00</p></div>
         <div class="scene-caption"><span>01 / АТМОСФЕРА</span><span>Для встреч, которые хочется продлить.</span></div>
       </section>
@@ -55,7 +56,8 @@
       </section>
     </div>
   </main>
-  <footer class="journey-footer"><button id="next-scene"><span class="scroll-icon" aria-hidden="true">↓</span><span id="scroll-label">Листайте. Здесь хорошо.</span></button><div class="scene-dots" aria-label="Переход к сцене"><a href="#home" class="active" aria-label="Атмосфера" aria-current="true"></a><a href="#coffee" aria-label="Кофе"></a><a href="#desserts" aria-label="Десерты"></a></div><span class="footer-brand">С ЛЮБОВЬЮ, FOX COFFEE</span><div class="progress-track"><div id="progress"></div></div></footer>
+  <footer class="journey-footer"><button id="next-scene"><span class="scroll-icon" aria-hidden="true">↓</span><span id="scroll-label">Листайте. Здесь хорошо.</span></button><div class="scene-dots" aria-label="Переход к сцене"><a href="#home" class="active" aria-label="Атмосфера" aria-current="true"></a><a href="#coffee" aria-label="Кофе"></a><a href="#desserts" aria-label="Десерты"></a></div><nav class="mobile-navigation" aria-label="Переключить раздел"><a href="#home" aria-current="true"><span aria-hidden="true">01</span>Атмосфера</a><a href="#coffee"><span aria-hidden="true">02</span>Кофе</a><a href="#desserts"><span aria-hidden="true">03</span>Десерты</a></nav><span class="footer-brand">С ЛЮБОВЬЮ, FOX COFFEE</span><div class="progress-track"><div id="progress"></div></div></footer>
+  <p class="scene-announcement" aria-live="polite" aria-atomic="true"></p>
   <noscript><style>.header,.journey-footer{position:relative}.stage{position:static;height:auto}#journey{height:auto}.scene{position:relative;opacity:1!important;visibility:visible!important;min-height:100svh}.scene[inert]{pointer-events:auto}.menu{display:flex}</style><p class="noscript-note">Включите JavaScript, чтобы выбирать позиции меню и видеть переходы между сценами.</p></noscript>
 </body>
 </html>

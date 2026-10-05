@@ -6,6 +6,14 @@
   const progress = document.querySelector('#progress');
   const motionButton = document.querySelector('#motion-toggle');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const mobileQuery = matchMedia('(max-width: 760px)');
+  let mobile = mobileQuery.matches;
+  let mobileIndex = Math.max(0, ids.indexOf(location.hash.slice(1)));
+  let sceneTransition = null;
+  let hintSeen = false;
+  try { hintSeen = localStorage.getItem('fox-coffee-swipe-seen') === '1'; } catch {}
+  const swipeHint = document.querySelector('.swipe-hint');
+  document.documentElement.classList.toggle('swipe-mobile', mobile);
   let motionOff = reduced.matches;
   let active = -1;
   let queued = false;
@@ -17,14 +25,30 @@
   const smooth = v => v * v * (3 - 2 * v);
   const maxScroll = () => Math.max(1, document.querySelector('#journey').offsetHeight - innerHeight);
   const position = () => clamp(scrollY / maxScroll()) * 3;
-  function draw() {
+  function draw(time = performance.now()) {
     queued = false;
-    const p = position();
-    const current = Math.min(2, Math.floor(p));
-    const local = p - current;
+    const p = mobile ? mobileIndex + .3 : position();
+    let current = mobile ? mobileIndex : Math.min(2, Math.floor(p));
+    const local = mobile ? .3 : p - current;
     // A scene fades out before the boundary. The next fades in after it.
     // Only one scene is ever visible, including during the transition.
-    const opacity = motionOff ? 1 : (current > 0 && local < .13 ? smooth(local / .13) : current < 2 && local > .83 ? 1 - smooth((local - .83) / .17) : 1);
+    let opacity = mobile || motionOff ? 1 : (current > 0 && local < .13 ? smooth(local / .13) : current < 2 && local > .83 ? 1 - smooth((local - .83) / .17) : 1);
+    let finishedFocus = false;
+    if (mobile && sceneTransition) {
+      const t = motionOff ? 1 : clamp((time - sceneTransition.start) / 460);
+      if (t < .5) {
+        current = sceneTransition.from;
+        opacity = 1 - smooth(t * 2);
+      } else {
+        current = sceneTransition.to;
+        opacity = smooth((t - .5) * 2);
+      }
+      if (t >= 1) {
+        mobileIndex = current;
+        finishedFocus = sceneTransition.focus;
+        sceneTransition = null;
+      } else schedule();
+    }
     scenes.forEach((scene, i) => {
       const isCurrent = i === current;
       scene.style.opacity = isCurrent ? opacity : 0;
@@ -35,14 +59,17 @@
     if (current !== active) {
       active = current;
       document.body.classList.toggle('light-ui', current > 0);
-      document.querySelectorAll('.header nav a,.scene-dots a').forEach(a => {
+      document.querySelectorAll('.header nav a,.scene-dots a,.mobile-navigation a').forEach(a => {
         const selected = a.hash === '#' + ids[current];
         a.classList.toggle('active', selected);
         if (selected) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
       });
       document.querySelector('#scroll-label').textContent = ['Листайте. Здесь хорошо.', 'Ещё немного сладкого.', 'Вернуться к атмосфере'][current];
+      document.querySelector('.scene-announcement').textContent = `${['Атмосфера', 'Кофе', 'Десерты'][current]}, раздел ${current + 1} из 3`;
     }
-    progress.style.width = `${p / 3 * 100}%`;
+    swipeHint.hidden = !mobile || hintSeen || current !== 0 || !!sceneTransition;
+    progress.style.width = `${mobile ? (current + 1) / 3 * 100 : p / 3 * 100}%`;
+    if (finishedFocus) focusHeading(current);
     vapor.update(current === 0 && !motionOff);
     if (!motionOff) {
       const scene = scenes[current];
@@ -61,9 +88,29 @@
     }
   }
   function schedule() { if (!queued) { queued = true; requestAnimationFrame(draw); } }
+  function focusHeading(index) {
+    const heading = scenes[index].querySelector('h1,h2');
+    heading.setAttribute('tabindex', '-1');
+    heading.focus({ preventScroll: true });
+  }
+  function dismissHint() {
+    hintSeen = true;
+    swipeHint.hidden = true;
+    try { localStorage.setItem('fox-coffee-swipe-seen', '1'); } catch {}
+  }
   function navigate(id, focus = false) {
     const index = ids.indexOf(id);
     if (index < 0) return;
+    if (mobile) {
+      if (sceneTransition) return;
+      dismissHint();
+      if (index !== mobileIndex) {
+        if (motionOff) { mobileIndex = index; draw(); if (focus) focusHeading(index); }
+        else { sceneTransition = { from: mobileIndex, to: index, start: performance.now(), focus }; schedule(); }
+      } else if (focus) focusHeading(index);
+      history.replaceState(null, '', '#' + id);
+      return;
+    }
     const target = (index + (index ? .19 : 0)) / 3 * maxScroll();
     window.scrollTo({ top: target, behavior: motionOff ? 'instant' : 'smooth' });
     history.replaceState(null, '', '#' + id);
@@ -73,9 +120,7 @@
       const finish = () => {
         if (Math.abs(scrollY - target) < 3) {
           draw();
-          const heading = scenes[index].querySelector('h1,h2');
-          heading.setAttribute('tabindex', '-1');
-          heading.focus({ preventScroll: true });
+          focusHeading(index);
         } else if (++attempts < 150) requestAnimationFrame(finish);
       };
       requestAnimationFrame(finish);
@@ -154,11 +199,58 @@
     schedule();
   }, { passive: true });
   window.addEventListener('resize', schedule);
+  mobileQuery.addEventListener('change', e => {
+    const index = sceneTransition ? sceneTransition.to : Math.max(0, active);
+    sceneTransition = null;
+    mobile = e.matches;
+    mobileIndex = index;
+    document.documentElement.classList.toggle('swipe-mobile', mobile);
+    active = -1;
+    window.scrollTo({ top: mobile ? 0 : (index + (index ? .19 : 0)) / 3 * maxScroll(), behavior: 'instant' });
+    pointerX = 0; pointerY = 0;
+    schedule();
+  });
+  let gesture = null;
+  let suppressClickUntil = 0;
+  const stage = document.querySelector('.stage');
+  stage.addEventListener('pointerdown', e => {
+    if (mobile && e.isPrimary && e.pointerType !== 'mouse') suppressClickUntil = 0;
+    if (!mobile || sceneTransition || e.pointerType === 'mouse' || !e.isPrimary || e.clientX < 24 || e.clientX > innerWidth - 24) return;
+    gesture = { id: e.pointerId, x: e.clientX, y: e.clientY, start: performance.now(), direction: null };
+  });
+  stage.addEventListener('pointermove', e => {
+    if (!gesture || gesture.id !== e.pointerId) return;
+    const dx = e.clientX - gesture.x, dy = e.clientY - gesture.y;
+    if (!gesture.direction && Math.max(Math.abs(dx), Math.abs(dy)) > 12) {
+      if (Math.abs(dx) > Math.abs(dy) * 1.35) gesture.direction = 'horizontal';
+      else if (Math.abs(dy) > Math.abs(dx)) gesture = null;
+    }
+    if (gesture?.direction === 'horizontal') {
+      suppressClickUntil = performance.now() + 500;
+      if (mobileIndex === 0) scrollEnergy = Math.min(1, Math.abs(dx) / 100);
+    }
+  });
+  stage.addEventListener('pointerup', e => {
+    if (!gesture || gesture.id !== e.pointerId) return;
+    const dx = e.clientX - gesture.x, dy = e.clientY - gesture.y;
+    const duration = Math.max(1, performance.now() - gesture.start);
+    const horizontal = gesture.direction === 'horizontal' || Math.abs(dx) > Math.abs(dy) * 1.35;
+    gesture = null;
+    if (!horizontal || Math.abs(dx) < 26 || (Math.abs(dx) < 48 && Math.abs(dx) / duration < .35)) return;
+    suppressClickUntil = performance.now() + 500;
+    const next = mobileIndex + (dx < 0 ? 1 : -1);
+    if (next >= 0 && next < ids.length) navigate(ids[next]);
+  });
+  stage.addEventListener('pointercancel', () => { gesture = null; });
+  stage.addEventListener('click', e => {
+    if (mobile && performance.now() < suppressClickUntil && e.detail !== 0) { e.preventDefault(); e.stopImmediatePropagation(); }
+  }, true);
+  window.addEventListener('hashchange', () => { if (ids.includes(location.hash.slice(1))) navigate(location.hash.slice(1)); });
   if (matchMedia('(pointer:fine)').matches) {
     window.addEventListener('pointermove', e => { pointerX = e.clientX / innerWidth - .5; pointerY = e.clientY / innerHeight - .5; schedule(); }, { passive: true });
   }
   updateMotion(); draw();
-  if (ids.includes(location.hash.slice(1))) requestAnimationFrame(() => navigate(location.hash.slice(1)));
+  if (!mobile && ids.includes(location.hash.slice(1))) requestAnimationFrame(() => navigate(location.hash.slice(1)));
 
   function createVapor() {
     const canvas = document.querySelector('.coffee-vapor');
