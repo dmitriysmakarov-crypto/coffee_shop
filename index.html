@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#303b2c">
+  <meta name="description" content="Fox Coffee — место для тёплых разговоров, любимого кофе и маленьких сладких радостей.">
+  <title>Fox Coffee — чуть ближе, чуть теплее</title>
+  <link rel="icon" href="./assets/fox.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#coffee-title">Перейти к кофе</a>
+  <header class="header">
+    <a class="brand" href="#home" aria-label="Fox Coffee — начало"><img src="./assets/fox.svg" alt="" width="38" height="38"><span>fox coffee<small>КОФЕ И ТЁПЛЫЕ РАЗГОВОРЫ</small></span></a>
+    <nav aria-label="Разделы сайта"><a href="#home" class="active">Атмосфера</a><a href="#coffee">Кофе</a><a href="#desserts">Десерты</a></nav>
+    <button class="soundless" id="motion-toggle" aria-pressed="false" aria-label="Отключить анимацию"><span aria-hidden="true">Ⅱ</span><span class="motion-label">Анимация</span></button>
+  </header>
+  <main id="journey">
+    <div class="stage">
+      <section class="scene hero is-active" id="home" aria-labelledby="hero-title">
+        <div class="hero-photo"><img src="./assets/cafe.webp" alt="Счастливая пара беседует за столиком уютной кофейни; перед ними кофе и десерты" fetchpriority="high"></div>
+        <div class="hero-foreground" aria-hidden="true"><img src="./assets/cafe.webp" alt=""></div>
+        <div class="hero-shade"></div>
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span>МАЛЕНЬКАЯ КОФЕЙНЯ. БОЛЬШИЕ ЧУВСТВА.</p>
+          <h1 id="hero-title">Чуть ближе.<br>Чуть <em>теплее.</em></h1>
+          <p class="intro">Хороший кофе, любимый десерт<br>и тот, с кем хочется остаться подольше.</p>
+          <a class="pill" href="#coffee">Найти свой кофе <span aria-hidden="true">↗</span></a>
+        </div>
+        <canvas class="coffee-vapor" aria-hidden="true"></canvas>
+        <div class="hero-note"><span class="little-star">✳</span><p>Москва, Красная площадь, д. 1<br>Каждый день · 10:00–23:00</p></div>
+        <div class="scene-caption"><span>01 / АТМОСФЕРА</span><span>Для встреч, которые хочется продлить.</span></div>
+      </section>
+      <section class="scene menu coffee" id="coffee" aria-labelledby="coffee-title" inert aria-hidden="true">
+        <div class="menu-visual"><img src="./assets/cappuccino.webp" alt="Одна чашка капучино с латте-артом на деревянном столе" loading="eager"><div class="photo-label">СВЕЖИЙ ПОМОЛ · КАЖДАЯ ЧАШКА</div><div class="steam menu-steam" aria-hidden="true"><i></i><i></i><i></i></div><div class="orbit" aria-hidden="true">made with love <span>✳</span></div></div>
+        <div class="menu-copy"><p class="eyebrow">02 / КОФЕ</p><h2 id="coffee-title" tabindex="-1">Ваш маленький<br> <em>ритуал.</em></h2><p class="section-intro">Бодрое утро или неспешный вечер.<br>Для каждого момента — своя чашка.</p>
+          <div class="product-list" aria-label="Выбрать кофе">
+            <button class="product selected" data-kind="coffee" data-index="0" aria-pressed="true"><span class="product-number">01</span><span class="product-name">Капучино<small>Мягкий, сливочный, любимый</small></span><span class="price">290 ₽</span><span class="product-arrow">↗</span></button>
+            <button class="product" data-kind="coffee" data-index="1" aria-pressed="false"><span class="product-number">02</span><span class="product-name">Эспрессо<small>Всё самое важное в одном глотке</small></span><span class="price">190 ₽</span><span class="product-arrow">↗</span></button>
+            <button class="product" data-kind="coffee" data-index="2" aria-pressed="false"><span class="product-number">03</span><span class="product-name">Айс-латте<small>Прохладный повод сделать паузу</small></span><span class="price">320 ₽</span><span class="product-arrow">↗</span></button>
+          </div><p class="tasting-note" id="coffee-note" aria-live="polite">Нежная молочная пена и насыщенный кофе. 200 мл.</p><div class="menu-footer"><span>Примерное меню и цены</span><a href="#desserts">А к кофе? <span>↓</span></a></div>
+        </div>
+      </section>
+      <section class="scene menu desserts" id="desserts" aria-labelledby="dessert-title" inert aria-hidden="true">
+        <div class="menu-visual"><img src="./assets/croissant.webp" alt="Один золотистый круассан на керамической тарелке" loading="eager"><div class="photo-label">МАЛЕНЬКИЕ РАДОСТИ · БОЛЬШЕ УДОВОЛЬСТВИЯ</div><div class="orbit" aria-hidden="true">a little sweetness <span>✳</span></div></div>
+        <div class="menu-copy"><p class="eyebrow">03 / ДЕСЕРТЫ</p><h2 id="dessert-title">Сладкий повод<br> <em>остаться.</em></h2><p class="section-intro">Хрустящая корочка. Нежная серединка.<br>Ещё одна маленькая радость к вашему кофе.</p>
+          <div class="product-list" aria-label="Выбрать десерт">
+            <button class="product selected" data-kind="desserts" data-index="0" aria-pressed="true"><span class="product-number">01</span><span class="product-name">Круассан<small>Золотистый, воздушный, с маслом</small></span><span class="price">240 ₽</span><span class="product-arrow">↗</span></button>
+            <button class="product" data-kind="desserts" data-index="1" aria-pressed="false"><span class="product-number">02</span><span class="product-name">Баскский чизкейк<small>Нежность с карамельной корочкой</small></span><span class="price">390 ₽</span><span class="product-arrow">↗</span></button>
+            <button class="product" data-kind="desserts" data-index="2" aria-pressed="false"><span class="product-number">03</span><span class="product-name">Шоколадный торт<small>Для тех, кто любит чуть насыщеннее</small></span><span class="price">360 ₽</span><span class="product-arrow">↗</span></button>
+          </div><p class="tasting-note" id="desserts-note" aria-live="polite">Тонкие слои теста и аромат сливочного масла. 80 г.</p><div class="menu-footer"><span>Примерное меню и цены</span><a href="#home">Встретимся в Fox Coffee <span>↗</span></a></div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="journey-footer"><button id="next-scene"><span class="scroll-icon" aria-hidden="true">↓</span><span id="scroll-label">Листайте. Здесь хорошо.</span></button><div class="scene-dots" aria-label="Переход к сцене"><a href="#home" class="active" aria-label="Атмосфера" aria-current="true"></a><a href="#coffee" aria-label="Кофе"></a><a href="#desserts" aria-label="Десерты"></a></div><span class="footer-brand">С ЛЮБОВЬЮ, FOX COFFEE</span><div class="progress-track"><div id="progress"></div></div></footer>
+  <noscript><style>.header,.journey-footer{position:relative}.stage{position:static;height:auto}#journey{height:auto}.scene{position:relative;opacity:1!important;visibility:visible!important;min-height:100svh}.scene[inert]{pointer-events:auto}.menu{display:flex}</style><p class="noscript-note">Включите JavaScript, чтобы выбирать позиции меню и видеть переходы между сценами.</p></noscript>
+</body>
+</html>
