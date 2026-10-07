@@ -143,56 +143,132 @@
   }
   motionButton.addEventListener('click', () => { motionOff = !motionOff; updateMotion(); });
   reduced.addEventListener('change', e => { motionOff = e.matches; updateMotion(); });
-  const notes = {
-    coffee: ['Нежная молочная пена и насыщенный кофе. 200 мл.', 'Чистый вкус кофе с шоколадными нотами. 30 мл.', 'Эспрессо, прохладное молоко и лёд. 300 мл.'],
-    desserts: ['Тонкие слои теста и аромат сливочного масла. 80 г.', 'Кремовая текстура и карамельная корочка. 140 г.', 'Насыщенный шоколад и нежный крем. 130 г.']
-  };
-  const products = {
-    coffee: [
-      ['cappuccino', 'Одна чашка капучино с латте-артом на деревянном столе'],
-      ['espresso', 'Одна маленькая чашка эспрессо с золотистой крема'],
-      ['iced-latte', 'Один стакан айс-латте со льдом и молочными слоями']
-    ],
-    desserts: [
-      ['croissant', 'Один золотистый круассан на керамической тарелке'],
-      ['cheesecake', 'Один кусочек баскского чизкейка на керамической тарелке'],
-      ['chocolate-cake', 'Один кусочек шоколадного торта на керамической тарелке']
-    ]
-  };
+  const menu = window.FOX_MENU;
+  const selections = { coffee: menu.products.coffee[0].id, desserts: menu.products.desserts[0].id };
   const swaps = new WeakMap();
-  Object.values(products).flat().forEach(([file]) => { const image = new Image(); image.src = `./assets/${file}.webp`; });
-  async function changePhoto(kind, index) {
-    const scene = scenes[ids.indexOf(kind)];
+  let chosenOffer = null;
+  const findProduct = (kind, id) => menu.products[kind].find(p => p.id === id);
+  const opposite = kind => kind === 'coffee' ? 'desserts' : 'coffee';
+  const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  function cardHTML(p, selected) {
+    return '<button class="product-card' + (selected ? ' selected' : '') + '" data-product="' + p.id + '" aria-pressed="' + selected + '"><img src="' + p.image + '" alt="" width="160" height="120"><span class="card-name">' + escapeHTML(p.name) + '</span><span class="card-meta">' + p.size + '<strong>' + p.price + ' ₽</strong></span></button>';
+  }
+  function renderCategory(kind, category) {
+    const scene = document.getElementById(kind);
+    scene.querySelectorAll('[data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === category)));
+    scene.querySelector('.product-grid').innerHTML = menu.products[kind].filter(p => p.category === category).map(p => cardHTML(p, p.id === selections[kind])).join('');
+  }
+  function updatePair(kind, product) {
+    const pairKind = opposite(kind);
+    const pairId = chosenOffer ? chosenOffer[pairKind === 'coffee' ? 'coffee' : 'dessert'] : product.pair;
+    const pair = findProduct(pairKind, pairId);
+    const button = document.getElementById(kind).querySelector('.pairing');
+    button.dataset.pair = pair.id;
+    button.querySelector('img').src = pair.image;
+    button.querySelector('strong').textContent = pair.name;
+    button.querySelector('small').textContent = chosenOffer ? chosenOffer.name : kind === 'coffee' ? 'К этой чашке' : 'К этому десерту';
+    button.setAttribute('aria-label', 'Посмотреть ' + pair.name);
+  }
+  async function changePhoto(kind, product) {
+    const scene = document.getElementById(kind);
     const photo = scene.querySelector('.menu-visual>img');
     const token = {};
     swaps.set(photo, token);
-    const [file, alt] = products[kind][index];
-    const src = `./assets/${file}.webp`;
     const incoming = new Image();
-    incoming.src = src;
+    incoming.src = product.image;
     try { await incoming.decode(); } catch { return; }
     if (swaps.get(photo) !== token) return;
-    photo.style.opacity = motionOff ? '1' : '0';
-    if (!motionOff) await new Promise(resolve => setTimeout(resolve, 160));
+    if (!motionOff) {
+      photo.style.opacity = '0';
+      await new Promise(resolve => setTimeout(resolve, 140));
+    }
     if (swaps.get(photo) !== token) return;
-    photo.src = src;
-    photo.alt = alt;
-    photo.style.objectPosition = '50% 50%';
-    photo.dataset.product = file;
-    scene.querySelector('.menu-steam')?.classList.toggle('cold-drink', file === 'iced-latte');
+    photo.src = product.image;
+    photo.alt = product.alt;
+    photo.dataset.product = product.id;
     await photo.decode().catch(() => {});
     if (swaps.get(photo) !== token) return;
+    scene.querySelector('.photo-caption h3').textContent = product.name;
+    scene.querySelector('.photo-caption p').textContent = product.tagline;
+    scene.querySelector('.photo-price').textContent = product.price + ' ₽';
+    scene.querySelector('.photo-index').textContent = String(menu.products[kind].indexOf(product) + 1).padStart(2, '0') + ' / ' + String(menu.products[kind].length).padStart(2, '0');
+    scene.querySelector('.photo-badge').textContent = product.badge || (kind === 'coffee' ? product.size : 'К вашему кофе');
     requestAnimationFrame(() => { if (swaps.get(photo) === token) photo.style.opacity = '1'; });
   }
-  document.querySelectorAll('.product').forEach(button => button.addEventListener('click', () => {
-    const { kind, index } = button.dataset;
-    button.parentElement.querySelectorAll('.product').forEach(item => {
-      item.classList.toggle('selected', item === button);
-      item.setAttribute('aria-pressed', String(item === button));
+  function selectProduct(kind, id, keepOffer = false) {
+    const product = findProduct(kind, id);
+    if (!product) return;
+    if (!keepOffer) chosenOffer = null;
+    selections[kind] = id;
+    const scene = document.getElementById(kind);
+    renderCategory(kind, product.category);
+    scene.querySelector('.detail-heading h3').textContent = product.name;
+    scene.querySelector('.detail-heading>span').textContent = product.size + ' · ' + product.price + ' ₽';
+    scene.querySelector('.tasting-note').textContent = product.description;
+    scene.querySelector('.ingredient-text').textContent = product.ingredients;
+    scene.querySelector('.allergen-text').textContent = product.allergens;
+    scene.querySelector('.ingredients').open = false;
+    for (const section of ['coffee', 'desserts']) updatePair(section, findProduct(section, selections[section]));
+    changePhoto(kind, product);
+  }
+  for (const kind of ['coffee', 'desserts']) {
+    const scene = document.getElementById(kind);
+    scene.querySelector('.category-tabs').innerHTML = menu.categories[kind].map(category => '<button data-category="' + category.id + '" aria-pressed="false">' + escapeHTML(category.name) + '<span>' + menu.products[kind].filter(p => p.category === category.id).length + '</span></button>').join('');
+    scene.querySelector('.category-tabs').addEventListener('click', e => {
+      const button = e.target.closest('[data-category]');
+      if (!button || button.getAttribute('aria-pressed') === 'true') return;
+      const product = menu.products[kind].find(p => p.category === button.dataset.category);
+      selectProduct(kind, product.id);
     });
-    document.querySelector(`#${kind}-note`).textContent = notes[kind][Number(index)];
-    changePhoto(kind, Number(index));
+    scene.querySelector('.product-grid').addEventListener('click', e => {
+      const button = e.target.closest('[data-product]');
+      if (!button) return;
+      const id = button.dataset.product;
+      selectProduct(kind, id);
+      if (e.detail === 0) scene.querySelector('.product-card[data-product="' + id + '"]').focus({ preventScroll: true });
+      else if (mobile) scene.scrollTo({ top: 0, behavior: motionOff ? 'instant' : 'smooth' });
+    });
+    scene.querySelector('.pairing').addEventListener('click', e => {
+      const targetKind = opposite(kind);
+      selectProduct(targetKind, e.currentTarget.dataset.pair, !!chosenOffer);
+      document.getElementById(targetKind).scrollTop = 0;
+      document.getElementById(targetKind).querySelector('.menu-copy').scrollTop = 0;
+      navigate(targetKind, e.detail === 0);
+    });
+  }
+  const offersDialog = document.querySelector('.offers-dialog');
+  offersDialog.querySelector('.offer-grid').innerHTML = menu.offers.map(offer => {
+    const coffee = findProduct('coffee', offer.coffee), dessert = findProduct('desserts', offer.dessert);
+    const total = (coffee.price + dessert.price) * offer.count;
+    return '<article class="offer-card"><div class="offer-images"><img src="' + coffee.image + '" alt="' + escapeHTML(coffee.name) + '"><img src="' + dessert.image + '" alt="' + escapeHTML(dessert.name) + '"></div><h3>' + escapeHTML(offer.name) + '</h3><p>' + escapeHTML(offer.caption) + '</p><div><strong>' + total + ' ₽</strong><span>' + (offer.count === 2 ? 'На двоих' : 'Напиток + десерт') + '</span></div><button data-offer="' + offer.id + '">Посмотреть сочетание <span aria-hidden="true">↗</span></button></article>';
+  }).join('');
+  for (const kind of ['coffee', 'desserts']) selectProduct(kind, selections[kind]);
+  document.querySelectorAll('.offers-button').forEach(button => button.addEventListener('click', () => {
+    offersDialog.showModal();
+    document.documentElement.classList.add('dialog-open');
   }));
+  const closeOffers = () => offersDialog.close();
+  offersDialog.querySelector('.dialog-close').addEventListener('click', closeOffers);
+  offersDialog.addEventListener('close', () => document.documentElement.classList.remove('dialog-open'));
+  offersDialog.addEventListener('click', e => {
+    if (e.target === offersDialog) {
+      const r = offersDialog.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) closeOffers();
+    }
+    const button = e.target.closest('[data-offer]');
+    if (!button) return;
+    chosenOffer = menu.offers.find(offer => offer.id === button.dataset.offer);
+    selectProduct('coffee', chosenOffer.coffee, true);
+    selectProduct('desserts', chosenOffer.dessert, true);
+    closeOffers();
+    document.getElementById('coffee').scrollTop = 0;
+    document.querySelector('#coffee .menu-copy').scrollTop = 0;
+    navigate('coffee', e.detail === 0);
+  });
+  const preload = () => Object.values(menu.products).flat().forEach(product => {
+    const image = new Image(); image.src = product.image;
+  });
+  if ('requestIdleCallback' in window) requestIdleCallback(preload, { timeout: 2000 }); else setTimeout(preload, 600);
   window.addEventListener('scroll', () => {
     scrollEnergy = Math.min(1, scrollEnergy + Math.abs(scrollY - lastScroll) / 160);
     lastScroll = scrollY;
