@@ -40,8 +40,9 @@ window.FOX_MENU = {
         "allergens": "Молоко.",
         "pair": "croissant",
         "badge": "Классика",
-        "image": "./assets/v2/cappuccino.webp",
-        "alt": "Капучино: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "image": "./assets/v3/cappuccino.webp",
+        "alt": "Капучино: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Молочная пена смягчает вкус, а хрустящие слои добавляют контраст."
       },
       {
         "id": "latte",
@@ -55,8 +56,9 @@ window.FOX_MENU = {
         "allergens": "Молоко.",
         "pair": "cinnamon-roll",
         "badge": "",
-        "image": "./assets/v2/latte.webp",
-        "alt": "Латте: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "image": "./assets/v3/latte.webp",
+        "alt": "Латте: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Мягкий кофе поддерживает ванильную глазурь и тёплый аромат корицы."
       },
       {
         "id": "flat-white",
@@ -70,8 +72,9 @@ window.FOX_MENU = {
         "allergens": "Молоко.",
         "pair": "almond-croissant",
         "badge": "",
-        "image": "./assets/v2/flat-white.webp",
-        "alt": "Флэт уайт: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "image": "./assets/v3/flat-white.webp",
+        "alt": "Флэт уайт: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Выразительный кофе оттеняет сладкий миндальный крем."
       },
       {
         "id": "espresso",
@@ -85,8 +88,9 @@ window.FOX_MENU = {
         "allergens": "Без молока в рецепте.",
         "pair": "chocolate-cake",
         "badge": "",
-        "image": "./assets/v2/espresso.webp",
-        "alt": "Эспрессо: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "image": "./assets/v3/espresso.webp",
+        "alt": "Эспрессо: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Насыщенный эспрессо подчёркивает какао, а крем смягчает горчинку."
       },
       {
         "id": "americano",
@@ -100,8 +104,9 @@ window.FOX_MENU = {
         "allergens": "Без молока в рецепте.",
         "pair": "cheesecake",
         "badge": "",
-        "image": "./assets/v2/americano.webp",
-        "alt": "Американо: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "image": "./assets/v3/americano.webp",
+        "alt": "Американо: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Чёрный кофе уравновешивает сливочную сладость чизкейка."
       },
       {
         "id": "filter",
@@ -115,8 +120,9 @@ window.FOX_MENU = {
         "allergens": "Без молока в рецепте.",
         "pair": "carrot-cake",
         "badge": "",
-        "image": "./assets/v2/filter.webp",
-        "alt": "Фильтр-кофе: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "image": "./assets/v3/filter.webp",
+        "alt": "Фильтр-кофе: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Лёгкий кофе оставляет место пряностям и орехам морковного торта."
       },
       {
         "id": "fox-raf",
@@ -130,8 +136,9 @@ window.FOX_MENU = {
         "allergens": "Молоко.",
         "pair": "almond-croissant",
         "badge": "Фирменный",
-        "image": "./assets/v2/fox-raf.webp",
-        "alt": "Лисий раф: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "image": "./assets/v3/fox-raf.webp",
+        "alt": "Лисий раф: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Апельсиновая нота рафа сочетается с миндалём и сливочным тестом."
       },
       {
         "id": "iced-latte",
@@ -145,8 +152,9 @@ window.FOX_MENU = {
         "allergens": "Молоко.",
         "pair": "carrot-cake",
         "badge": "Со льдом",
-        "image": "./assets/v2/iced-latte.webp",
-        "alt": "Айс-латте: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "image": "./assets/v3/iced-latte.webp",
+        "alt": "Айс-латте: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Прохладный молочный кофе оттеняет пряный бисквит и сливочный крем."
       },
       {
         "id": "spiced-latte",
@@ -160,8 +168,9 @@ window.FOX_MENU = {
         "allergens": "Молоко.",
         "pair": "cinnamon-roll",
         "badge": "Сезонный",
-        "image": "./assets/v2/spiced-latte.webp",
-        "alt": "Пряный латте: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "image": "./assets/v3/spiced-latte.webp",
+        "alt": "Пряный латте: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Корица в чашке и в выпечке создаёт тёплое пряное сочетание."
       }
     ],
     "desserts": [
@@ -178,7 +187,8 @@ window.FOX_MENU = {
         "pair": "cappuccino",
         "badge": "Классика",
         "image": "./assets/v2/croissant.webp",
-        "alt": "Круассан: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "alt": "Круассан: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Мягкий капучино дополняет сливочное тесто и хрустящую корочку."
       },
       {
         "id": "almond-croissant",
@@ -193,7 +203,8 @@ window.FOX_MENU = {
         "pair": "flat-white",
         "badge": "",
         "image": "./assets/v2/almond-croissant.webp",
-        "alt": "Миндальный круассан: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "alt": "Миндальный круассан: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Двойной эспрессо во флэт уайте уравновешивает сладость миндаля."
       },
       {
         "id": "cinnamon-roll",
@@ -208,7 +219,8 @@ window.FOX_MENU = {
         "pair": "latte",
         "badge": "",
         "image": "./assets/v2/cinnamon-roll.webp",
-        "alt": "Булочка с корицей: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "alt": "Булочка с корицей: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Молочный латте смягчает пряность корицы и ванильную глазурь."
       },
       {
         "id": "cheesecake",
@@ -223,7 +235,8 @@ window.FOX_MENU = {
         "pair": "americano",
         "badge": "",
         "image": "./assets/v2/cheesecake.webp",
-        "alt": "Баскский чизкейк: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "alt": "Баскский чизкейк: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Американо уравновешивает сладость и освежает вкус после сливочного крема."
       },
       {
         "id": "chocolate-cake",
@@ -238,7 +251,8 @@ window.FOX_MENU = {
         "pair": "espresso",
         "badge": "",
         "image": "./assets/v2/chocolate-cake.webp",
-        "alt": "Шоколадный торт: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "alt": "Шоколадный торт: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Эспрессо подчёркивает какао и оставляет выразительное послевкусие."
       },
       {
         "id": "carrot-cake",
@@ -253,7 +267,8 @@ window.FOX_MENU = {
         "pair": "filter",
         "badge": "",
         "image": "./assets/v2/carrot-cake.webp",
-        "alt": "Морковный торт: один продукт крупным планом на светлом столе в кофейне Fox Coffee"
+        "alt": "Морковный торт: один продукт крупным планом на светлом столе в кофейне Fox Coffee",
+        "pairingNote": "Фильтр-кофе дополняет пряности, не перебивая нежный крем."
       }
     ]
   },
@@ -264,7 +279,8 @@ window.FOX_MENU = {
       "caption": "Хрустящий круассан и мягкий капучино.",
       "coffee": "cappuccino",
       "dessert": "croissant",
-      "count": 1
+      "count": 1,
+      "why": "Мягкий капучино дополняет сливочный вкус круассана, а хрустящие слои контрастируют с молочной пеной."
     },
     {
       "id": "pause",
@@ -272,7 +288,8 @@ window.FOX_MENU = {
       "caption": "Чёрный кофе и нежный баскский чизкейк.",
       "coffee": "filter",
       "dessert": "cheesecake",
-      "count": 1
+      "count": 1,
+      "why": "Лёгкий фильтр-кофе уравновешивает сливочную сладость чизкейка и освежает послевкусие."
     },
     {
       "id": "together",
@@ -280,8 +297,8 @@ window.FOX_MENU = {
       "caption": "Два капучино и два чизкейка. Для долгого разговора.",
       "coffee": "cappuccino",
       "dessert": "cheesecake",
-      "count": 2
+      "count": 2,
+      "why": "Капучино и чизкейк объединяет сливочный вкус. По чашке и десерту каждому — чтобы делиться впечатлениями."
     }
   ]
 };
-

@@ -70,7 +70,7 @@
     swipeHint.hidden = !mobile || hintSeen || current !== 0 || !!sceneTransition;
     progress.style.width = `${mobile ? (current + 1) / 3 * 100 : p / 3 * 100}%`;
     if (finishedFocus) focusHeading(current);
-    vapor.update(current === 0 && !motionOff);
+    vapor.update(current === 0 && !motionOff && !document.querySelector('dialog[open]'));
     if (!motionOff) {
       const scene = scenes[current];
       const photo = scene.querySelector('.hero-photo img,.menu-visual>img');
@@ -167,6 +167,7 @@
     button.querySelector('img').src = pair.image;
     button.querySelector('strong').textContent = pair.name;
     button.querySelector('small').textContent = chosenOffer ? chosenOffer.name : kind === 'coffee' ? 'К этой чашке' : 'К этому десерту';
+    button.querySelector('.pair-reason').textContent = chosenOffer ? chosenOffer.why : product.pairingNote;
     button.setAttribute('aria-label', 'Посмотреть ' + pair.name);
   }
   async function changePhoto(kind, product) {
@@ -203,7 +204,8 @@
     const scene = document.getElementById(kind);
     renderCategory(kind, product.category);
     scene.querySelector('.detail-heading h3').textContent = product.name;
-    scene.querySelector('.detail-heading>span').textContent = product.size + ' · ' + product.price + ' ₽';
+    scene.querySelector('.detail-size').textContent = product.size;
+    scene.querySelector('.detail-price').textContent = ' · ' + product.price + ' ₽';
     scene.querySelector('.tasting-note').textContent = product.description;
     scene.querySelector('.ingredient-text').textContent = product.ingredients;
     scene.querySelector('.allergen-text').textContent = product.allergens;
@@ -226,13 +228,15 @@
       const id = button.dataset.product;
       selectProduct(kind, id);
       if (e.detail === 0) scene.querySelector('.product-card[data-product="' + id + '"]').focus({ preventScroll: true });
-      else if (mobile) scene.scrollTo({ top: 0, behavior: motionOff ? 'instant' : 'smooth' });
+      else if (mobile && scene.querySelector('.menu-visual').getBoundingClientRect().bottom < scene.getBoundingClientRect().top + 80) {
+        scene.scrollTo({ top: 0, behavior: motionOff ? 'instant' : 'smooth' });
+      }
     });
     scene.querySelector('.pairing').addEventListener('click', e => {
       const targetKind = opposite(kind);
       selectProduct(targetKind, e.currentTarget.dataset.pair, !!chosenOffer);
       document.getElementById(targetKind).scrollTop = 0;
-      document.getElementById(targetKind).querySelector('.menu-copy').scrollTop = 0;
+      document.getElementById(targetKind).querySelector('.menu-scroll').scrollTop = 0;
       navigate(targetKind, e.detail === 0);
     });
   }
@@ -240,21 +244,53 @@
   offersDialog.querySelector('.offer-grid').innerHTML = menu.offers.map(offer => {
     const coffee = findProduct('coffee', offer.coffee), dessert = findProduct('desserts', offer.dessert);
     const total = (coffee.price + dessert.price) * offer.count;
-    return '<article class="offer-card"><div class="offer-images"><img src="' + coffee.image + '" alt="' + escapeHTML(coffee.name) + '"><img src="' + dessert.image + '" alt="' + escapeHTML(dessert.name) + '"></div><h3>' + escapeHTML(offer.name) + '</h3><p>' + escapeHTML(offer.caption) + '</p><div><strong>' + total + ' ₽</strong><span>' + (offer.count === 2 ? 'На двоих' : 'Напиток + десерт') + '</span></div><button data-offer="' + offer.id + '">Посмотреть сочетание <span aria-hidden="true">↗</span></button></article>';
+    return '<article class="offer-card"><div class="offer-images"><img src="' + coffee.image + '" alt="' + escapeHTML(coffee.name) + '"><img src="' + dessert.image + '" alt="' + escapeHTML(dessert.name) + '"></div><h3>' + escapeHTML(offer.name) + '</h3><p>' + escapeHTML(offer.caption) + '</p><p class="offer-why"><span>ПОЧЕМУ ЭТО ВКУСНО ВМЕСТЕ</span>' + escapeHTML(offer.why) + '</p><div><strong>' + total + ' ₽</strong><span>' + (offer.count === 2 ? 'На двоих' : 'Напиток + десерт') + '</span></div><button data-offer="' + offer.id + '">Посмотреть сочетание <span aria-hidden="true">↗</span></button></article>';
   }).join('');
+  const minimumOffer = Math.min(...menu.offers.map(offer => (findProduct('coffee', offer.coffee).price + findProduct('desserts', offer.dessert).price) * offer.count));
+  document.querySelectorAll('.offer-from').forEach(label => label.textContent = 'от ' + minimumOffer + ' ₽');
   for (const kind of ['coffee', 'desserts']) selectProduct(kind, selections[kind]);
-  document.querySelectorAll('.offers-button').forEach(button => button.addEventListener('click', () => {
-    offersDialog.showModal();
+  const visitDialog = document.querySelector('.visit-dialog');
+  function openDialog(dialog) {
+    dialog.showModal();
+    dialog.scrollTop = 0;
     document.documentElement.classList.add('dialog-open');
+    vapor.update(false);
+  }
+  for (const dialog of [offersDialog, visitDialog]) {
+    dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => {
+      document.documentElement.classList.toggle('dialog-open', !!document.querySelector('dialog[open]'));
+      schedule();
+    });
+    dialog.addEventListener('click', e => {
+      if (e.target !== dialog) return;
+      const rect = dialog.getBoundingClientRect();
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) dialog.close();
+    });
+  }
+  document.querySelectorAll('.visit-button').forEach(button => button.addEventListener('click', () => {
+    visitDialog.querySelector('.copy-status').textContent = '';
+    openDialog(visitDialog);
+  }));
+  document.querySelector('.copy-address').addEventListener('click', async () => {
+    const status = visitDialog.querySelector('.copy-status');
+    try {
+      await navigator.clipboard.writeText(visitDialog.querySelector('address').textContent);
+      status.textContent = 'Адрес скопирован';
+    } catch { status.textContent = 'Выделите и скопируйте адрес выше.'; }
+  });
+  document.querySelectorAll('[data-featured]').forEach(button => button.addEventListener('click', e => {
+    selectProduct('coffee', button.dataset.featured);
+    if (visitDialog.open) visitDialog.close();
+    document.getElementById('coffee').scrollTop = 0;
+    document.querySelector('#coffee .menu-scroll').scrollTop = 0;
+    navigate('coffee', e.detail === 0);
+  }));
+  document.querySelectorAll('.offers-button').forEach(button => button.addEventListener('click', () => {
+    openDialog(offersDialog);
   }));
   const closeOffers = () => offersDialog.close();
-  offersDialog.querySelector('.dialog-close').addEventListener('click', closeOffers);
-  offersDialog.addEventListener('close', () => document.documentElement.classList.remove('dialog-open'));
   offersDialog.addEventListener('click', e => {
-    if (e.target === offersDialog) {
-      const r = offersDialog.getBoundingClientRect();
-      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) closeOffers();
-    }
     const button = e.target.closest('[data-offer]');
     if (!button) return;
     chosenOffer = menu.offers.find(offer => offer.id === button.dataset.offer);
@@ -262,7 +298,7 @@
     selectProduct('desserts', chosenOffer.dessert, true);
     closeOffers();
     document.getElementById('coffee').scrollTop = 0;
-    document.querySelector('#coffee .menu-copy').scrollTop = 0;
+    document.querySelector('#coffee .menu-scroll').scrollTop = 0;
     navigate('coffee', e.detail === 0);
   });
   const preload = () => Object.values(menu.products).flat().forEach(product => {
