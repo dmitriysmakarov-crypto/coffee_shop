@@ -1,0 +1,221 @@
+{
+  "mode": "Built-in image_gen",
+  "date": "2026-10-12",
+  "common": "Use case: product-mockup. Generate ONE finished photorealistic food photograph for a premium warm Fox Coffee mobile website, NOT a UI mockup. Portrait aspect ratio exactly 1:2 (1024x2048). Full bleed scene, no border, text, lettering, numbers, logos, menus or collage. Exactly ONE product, fully visible with its whole plate/saucer and handle. Position the entire product including plate inside x=12%..88%, y=33%..63% of the image, horizontally centered. The product must be large and appetizing but remain inside these bounds; top 30% and bottom 30% are atmospheric background for overlay interface. Product sharp, naturally realistic texture, editorial commercial food photography, gentle warm natural window light. No hands, people, additional food, extra cups, cutlery crossing the subject or extreme lens effects. Match the provided reference's photographic palette and materials, IGNORE ALL the reference UI/text, and output only one continuous original photograph.",
+  "themeSpecs": {
+    "table": "Theme 04: near top-down camera at approximately 65 degrees above a honey-coloured oak cafe tabletop with diagonal wood grain, cream linen with thin forest-green stripe only at upper right edge, faint out-of-focus green leaves at far corners, warm dappled morning sunlight, whole product on a speckled cream ceramic saucer.",
+    "gallery": "Theme 05: camera at about 25 degrees above a low pale terracotta stone circular plinth with warm terracotta plaster wall behind, subtle olive-branch shadows on wall, muted burnt-orange palette, distant tiny cream flowers at far right edge, warm afternoon sunshine, product on speckled cream ceramic saucer centered on plinth."
+  },
+  "photos": [
+    {
+      "theme": "table",
+      "id": "cappuccino",
+      "prompt": "Use case: product-mockup. Generate ONE finished photorealistic food photograph for a premium warm Fox Coffee mobile website, NOT a UI mockup. Portrait aspect ratio exactly 1:2 (1024x2048). Full bleed scene, no border, text, lettering, numbers, logos, menus or collage. Exactly ONE product, fully visible with its whole plate/saucer and handle. Position the entire product including plate inside x=12%..88%, y=33%..63% of the image, horizontally centered. The product must be large and appetizing but remain inside these bounds; top 30% and bottom 30% are atmospheric background for overlay interface. Product sharp, naturally realistic texture, editorial commercial food photography, gentle warm natural window light. No hands, people, additional food, extra cups, cutlery crossing the subject or extreme lens effects. Match the provided reference's photographic palette and materials, IGNORE ALL the reference UI/text, and output only one continuous original photograph.\nTheme 04: near top-down camera at approximately 65 degrees above a honey-coloured oak cafe tabletop with diagonal wood grain, cream linen with thin forest-green stripe only at upper right edge, faint out-of-focus green leaves at far corners, warm dappled morning sunlight, whole product on a speckled cream ceramic saucer.\nProduct: a single 200 ml cappuccino in a rounded handmade ivory ceramic cup, its handle on right, rich caramel crema and beautiful white heart/rosetta latte art, matching saucer. No baked goods or garnish.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-52fafeb5-e522-4c13-a73f-9c262c285876.png",
+      "output": "table/cappuccino.webp"
+    },
+    {
+      "theme": "table",
+      "id": "latte",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single large 300 ml ceramic latte cup, taller than a cappuccino cup, pale milky coffee topped with a delicate rosetta in thin microfoam, matching saucer. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-1974d556-5fb9-4a19-8fb0-23991c773c1a.png",
+      "output": "table/latte.webp"
+    },
+    {
+      "theme": "table",
+      "id": "flat-white",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single small wide 180 ml flat white ivory ceramic cup, double espresso with thin silky milk microfoam and fine small tulip latte art, caramel coffee rim, matching saucer. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-5b8d5176-df95-4b00-ba05-40575fdbf4ab.png",
+      "output": "table/flat-white.webp"
+    },
+    {
+      "theme": "table",
+      "id": "espresso",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single tiny 30 ml espresso in a demitasse ivory ceramic cup with matching small saucer, deep dark espresso and golden crema, absolutely NO milk, NO white foam or latte art; visibly short and concentrated. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-17eefaa5-ea13-4eb6-8bfd-23e67c4a6675.png",
+      "output": "table/espresso.webp"
+    },
+    {
+      "theme": "table",
+      "id": "americano",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single 200 ml black Americano coffee in an ivory ceramic cup and saucer, dark translucent coffee with thin tan crema around rim, absolutely NO milk or latte art. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-9ed24356-19ea-4d1a-a694-36301bb82dc3.png",
+      "output": "table/americano.webp"
+    },
+    {
+      "theme": "table",
+      "id": "filter",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single 250 ml black filter coffee in a handleless ivory ceramic tumbler on a matching small saucer, clear dark brown liquid with no crema foam, absolutely NO milk or latte art. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-1f912541-15ba-4fd8-895c-e8a848a7a203.png",
+      "output": "table/filter.webp"
+    },
+    {
+      "theme": "table",
+      "id": "fox-raf",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single 250 ml creamy vanilla-orange raf coffee in an ivory ceramic cup on saucer, fine velvety beige foam with a small delicate curl of orange zest on top; no fruit outside the cup. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-0723568b-adce-4d30-b001-1a5ab8404018.png",
+      "output": "table/fox-raf.webp"
+    },
+    {
+      "theme": "table",
+      "id": "iced-latte",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single tall clear 300 ml glass of iced latte, distinct milk and espresso swirls, clearly visible translucent ice cubes and natural condensation, NO steam, one ivory saucer under glass, no straw. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-07491f27-e545-4f66-88a5-a798c49e3f8e.png",
+      "output": "table/iced-latte.webp"
+    },
+    {
+      "theme": "table",
+      "id": "spiced-latte",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single 250 ml warm spiced latte in an ivory ceramic cup and saucer, creamy beige milk foam with a restrained cinnamon dusting, no decorative spices outside the cup. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-0b92a379-a749-467b-b2a1-9e24a6eb8452.png",
+      "output": "table/spiced-latte.webp"
+    },
+    {
+      "theme": "table",
+      "id": "croissant",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single classic butter croissant, richly golden flaky curved pastry, on one large speckled ivory ceramic plate. NO coffee cup, NO glass, NO other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-36ac23ef-367f-49c4-93a4-c3d6608b8397.png",
+      "output": "table/croissant.webp"
+    },
+    {
+      "theme": "table",
+      "id": "almond-croissant",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single almond croissant with visible toasted sliced almond flakes, light powdered sugar and a hint of almond cream in split pastry, on one large speckled ivory ceramic plate. NO coffee cup or other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-68d443ba-a63b-4427-a720-af0f37dc441a.png",
+      "output": "table/almond-croissant.webp"
+    },
+    {
+      "theme": "table",
+      "id": "cinnamon-roll",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single cinnamon spiral bun with thin white vanilla glaze, golden soft dough and distinct dark cinnamon spiral, on one large speckled ivory ceramic plate. NO coffee cup or other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-0a15c2af-64a6-45dd-b6c3-80370b7ebcdf.png",
+      "output": "table/cinnamon-roll.webp"
+    },
+    {
+      "theme": "table",
+      "id": "cheesecake",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single triangular slice of Basque burnt cheesecake, deep caramel-brown rustic top and creamy pale custard centre, no biscuit base, on one large speckled ivory ceramic plate. NO coffee cup, fruit, sauces or other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-271b7ed4-0777-44f7-88c1-cac8f1aec984.png",
+      "output": "table/cheesecake.webp"
+    },
+    {
+      "theme": "table",
+      "id": "chocolate-cake",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single triangular slice of moist chocolate layer cake with dark chocolate sponge, chocolate cream layers and delicate chocolate shavings on top, on one large speckled ivory ceramic plate. NO coffee cup, fruit or other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-1a68b08e-e53d-4264-b51d-179861c0df0b.png",
+      "output": "table/chocolate-cake.webp"
+    },
+    {
+      "theme": "table",
+      "id": "carrot-cake",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme table. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single triangular slice of carrot layer cake, warm orange-brown crumb with tiny walnut pieces, cream-cheese frosting between layers and on top, a few walnut crumbs on frosting, on one large speckled ivory ceramic plate. NO coffee cup or other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-ca7d2e2f-b111-4421-a74f-1696e5ec7533.png",
+      "output": "table/carrot-cake.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "cappuccino",
+      "prompt": "Use case: product-mockup. Generate ONE finished photorealistic food photograph for a premium warm Fox Coffee mobile website, NOT a UI mockup. Portrait aspect ratio exactly 1:2 (1024x2048). Full bleed scene, no border, text, lettering, numbers, logos, menus or collage. Exactly ONE product, fully visible with its whole plate/saucer and handle. Position the entire product including plate inside x=12%..88%, y=33%..63% of the image, horizontally centered. The product must be large and appetizing but remain inside these bounds; top 30% and bottom 30% are atmospheric background for overlay interface. Product sharp, naturally realistic texture, editorial commercial food photography, gentle warm natural window light. No hands, people, additional food, extra cups, cutlery crossing the subject or extreme lens effects. Match the provided reference's photographic palette and materials, IGNORE ALL the reference UI/text, and output only one continuous original photograph.\nTheme 05: camera at about 25 degrees above a low pale terracotta stone circular plinth with warm terracotta plaster wall behind, subtle olive-branch shadows on wall, muted burnt-orange palette, distant tiny cream flowers at far right edge, warm afternoon sunshine, product on speckled cream ceramic saucer centered on plinth.\nProduct: a single 200 ml cappuccino in a rounded handmade ivory ceramic cup, its handle on right, rich caramel crema and beautiful white heart/rosetta latte art, matching saucer. No baked goods or garnish.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-48ff8a65-7b78-4a0e-888f-7a2fa050037b.png",
+      "output": "gallery/cappuccino.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "latte",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single large 300 ml ceramic latte cup, taller than a cappuccino cup, pale milky coffee topped with a delicate rosetta in thin microfoam, matching saucer. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-41462558-d17e-4e38-bc83-8b9b32d16926.png",
+      "output": "gallery/latte.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "flat-white",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single small wide 180 ml flat white ivory ceramic cup, double espresso with thin silky milk microfoam and fine small tulip latte art, caramel coffee rim, matching saucer. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-9f026a1f-9959-4381-9f09-ce734af791bb.png",
+      "output": "gallery/flat-white.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "espresso",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single tiny 30 ml espresso in a demitasse ivory ceramic cup with matching small saucer, deep dark espresso and golden crema, absolutely NO milk, NO white foam or latte art; visibly short and concentrated. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-73f9bf74-ddbf-4d3f-b3d1-e8b540c8b027.png",
+      "output": "gallery/espresso.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "americano",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single 200 ml black Americano coffee in an ivory ceramic cup and saucer, dark translucent coffee with thin tan crema around rim, absolutely NO milk or latte art. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-cb1999eb-9270-44ec-b30b-311f6c3c2434.png",
+      "output": "gallery/americano.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "filter",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single 250 ml black filter coffee in a handleless ivory ceramic tumbler on a matching small saucer, clear dark brown liquid with no crema foam, absolutely NO milk or latte art. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-843271ff-32a1-4331-bbef-e30ac1f8d4b8.png",
+      "output": "gallery/filter.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "fox-raf",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single 250 ml creamy vanilla-orange raf coffee in an ivory ceramic cup on saucer, fine velvety beige foam with a small delicate curl of orange zest on top; no fruit outside the cup. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-682e7546-ff26-4ee4-9e0b-6b206a3feac4.png",
+      "output": "gallery/fox-raf.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "iced-latte",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single tall clear 300 ml glass of iced latte, distinct milk and espresso swirls, clearly visible translucent ice cubes and natural condensation, NO steam, one ivory saucer under glass, no straw. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-2b319a57-d14f-4391-993c-c3246315fd83.png",
+      "output": "gallery/iced-latte.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "spiced-latte",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: a single 250 ml warm spiced latte in an ivory ceramic cup and saucer, creamy beige milk foam with a restrained cinnamon dusting, no decorative spices outside the cup. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-20247f22-7c34-4114-b4d7-a5dd2d510b9d.png",
+      "output": "gallery/spiced-latte.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "croissant",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single classic butter croissant, richly golden flaky curved pastry, on one large speckled ivory ceramic plate. NO coffee cup, NO glass, NO other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-afe8bd6c-5230-4462-bed4-e7f694f57c79.png",
+      "output": "gallery/croissant.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "almond-croissant",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single almond croissant with visible toasted sliced almond flakes, light powdered sugar and a hint of almond cream in split pastry, on one large speckled ivory ceramic plate. NO coffee cup or other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-8785b0c0-03b7-4e01-b38f-ab39722f4ff0.png",
+      "output": "gallery/almond-croissant.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "cinnamon-roll",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single cinnamon spiral bun with thin white vanilla glaze, golden soft dough and distinct dark cinnamon spiral, on one large speckled ivory ceramic plate. NO coffee cup or other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-55072cd2-21e8-449a-9aa6-213805e47c06.png",
+      "output": "gallery/cinnamon-roll.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "cheesecake",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single triangular slice of Basque burnt cheesecake, deep caramel-brown rustic top and creamy pale custard centre, no biscuit base, on one large speckled ivory ceramic plate. NO coffee cup, fruit, sauces or other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-eaa0d2df-cec8-4b00-9592-47c5d682d2aa.png",
+      "output": "gallery/cheesecake.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "chocolate-cake",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single triangular slice of moist chocolate layer cake with dark chocolate sponge, chocolate cream layers and delicate chocolate shavings on top, on one large speckled ivory ceramic plate. NO coffee cup, fruit or other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-ba3fc5c5-a1f7-41a4-bf91-d7b73be69454.png",
+      "output": "gallery/chocolate-cake.webp"
+    },
+    {
+      "theme": "gallery",
+      "id": "carrot-cake",
+      "prompt": "Use case: precise-object-edit. Input image is the approved full-screen mobile product photo for Fox Coffee, theme gallery. Create the next photograph in the same series. Preserve portrait 1:2 aspect ratio, entire background, camera angle, lighting, materials and photographic style. Replace ONLY the cappuccino cup and saucer with: one single triangular slice of carrot layer cake, warm orange-brown crumb with tiny walnut pieces, cream-cheese frosting between layers and on top, a few walnut crumbs on frosting, on one large speckled ivory ceramic plate. NO coffee cup or other foods. Keep exactly ONE product. Entire new product and whole plate/saucer/handle must be visible with at least 10% clear space at left and right edges. Position subject centered near y=49%, and keep all of it within y=30%..65%; leave the top 28% and bottom 28% as empty background for website text. Match original natural perspective and realistic shadows. The food should be large and sharp. No text, UI, logos, watermarks, border, collage or extra food. For desserts remove every trace of the original coffee cup. Result is a standalone food photograph, not a mockup.",
+      "source": "C:\\Users\\User\\.codex\\generated_images\\01a10881-09be-7ad2-80d6-6acf5e75b90e\\exec-02206ce4-bf9a-470a-be03-dc153e537f24.png",
+      "output": "gallery/carrot-cake.webp"
+    }
+  ]
+}
