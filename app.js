@@ -75,8 +75,7 @@
       const scene = scenes[current];
       const photo = scene.querySelector('.hero-photo img,.menu-visual>img');
       const travel = (clamp(local) - .4) * (current === 0 ? 36 : 20);
-      if (current === 0) photo.style.transform = `translate(${pointerX * 5}px,${travel + pointerY * 4}px) scale(${1.06 + clamp(local) * .035})`;
-      else photo.style.removeProperty('transform');
+      photo.style.transform = `translate(${pointerX * 5}px,${travel + pointerY * 4}px) scale(${1.06 + clamp(local) * .035})`;
       if (current === 0) {
         scene.querySelector('.hero-foreground img').style.transform = `translate(${pointerX * 8}px,${travel + pointerY * 6 + clamp(local) * 17}px) scale(${1.06 + clamp(local) * .035})`;
         scene.querySelector('.hero-copy').style.transform = `translateY(${-clamp(local) * 28}px)`;
@@ -90,7 +89,7 @@
   }
   function schedule() { if (!queued) { queued = true; requestAnimationFrame(draw); } }
   function focusHeading(index) {
-    const heading = mobile && index > 0 ? scenes[index].querySelector('.mobile-product-heading h3') : scenes[index].querySelector('h1,h2');
+    const heading = scenes[index].querySelector('h1,h2');
     heading.setAttribute('tabindex', '-1');
     heading.focus({ preventScroll: true });
   }
@@ -145,12 +144,6 @@
   motionButton.addEventListener('click', () => { motionOff = !motionOff; updateMotion(); });
   reduced.addEventListener('change', e => { motionOff = e.matches; updateMotion(); });
   const menu = window.FOX_MENU;
-  let design = 'table';
-  try { design = new URLSearchParams(location.search).get('design') || localStorage.getItem('fox-coffee-design') || 'table'; } catch {}
-  if (!['table', 'gallery'].includes(design)) design = 'table';
-  document.documentElement.dataset.design = design;
-  const imageFor = product => `./assets/v4/${design}/${product.id}.webp`;
-  const thumbFor = product => `./assets/v4/${design}/${product.id}-thumb.webp`;
   const selections = { coffee: menu.products.coffee[0].id, desserts: menu.products.desserts[0].id };
   const swaps = new WeakMap();
   let chosenOffer = null;
@@ -158,11 +151,11 @@
   const opposite = kind => kind === 'coffee' ? 'desserts' : 'coffee';
   const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function cardHTML(p, selected) {
-    return '<button class="product-card' + (selected ? ' selected' : '') + '" data-product="' + p.id + '" aria-pressed="' + selected + '"><img src="' + thumbFor(p) + '" alt="" width="160" height="120" loading="lazy"><span class="card-name">' + escapeHTML(p.name) + '</span><span class="card-meta">' + p.size + '<strong>' + p.price + ' ₽</strong></span></button>';
+    return '<button class="product-card' + (selected ? ' selected' : '') + '" data-product="' + p.id + '" aria-pressed="' + selected + '"><img src="' + p.image + '" alt="" width="160" height="120"><span class="card-name">' + escapeHTML(p.name) + '</span><span class="card-meta">' + p.size + '<strong>' + p.price + ' ₽</strong></span></button>';
   }
   function renderCategory(kind, category) {
     const scene = document.getElementById(kind);
-    scene.querySelectorAll('.category-tabs [data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === category)));
+    scene.querySelectorAll('[data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === category)));
     scene.querySelector('.product-grid').innerHTML = menu.products[kind].filter(p => p.category === category).map(p => cardHTML(p, p.id === selections[kind])).join('');
   }
   function updatePair(kind, product) {
@@ -171,7 +164,7 @@
     const pair = findProduct(pairKind, pairId);
     const button = document.getElementById(kind).querySelector('.pairing');
     button.dataset.pair = pair.id;
-    button.querySelector('img').src = thumbFor(pair);
+    button.querySelector('img').src = pair.image;
     button.querySelector('strong').textContent = pair.name;
     button.querySelector('small').textContent = chosenOffer ? chosenOffer.name : kind === 'coffee' ? 'К этой чашке' : 'К этому десерту';
     button.querySelector('.pair-reason').textContent = chosenOffer ? chosenOffer.why : product.pairingNote;
@@ -182,33 +175,20 @@
     const photo = scene.querySelector('.menu-visual>img');
     const token = {};
     swaps.set(photo, token);
-    const source = imageFor(product);
-    scene.classList.add('photo-loading');
     const incoming = new Image();
-    incoming.src = source;
-    try { await incoming.decode(); } catch {
-      if (swaps.get(photo) === token) {
-        scene.classList.remove('photo-loading');
-        photo.style.opacity = '1';
-        scene.querySelector('.photo-status').textContent = 'Фото не загрузилось. Нажмите, чтобы повторить.';
-        scene.querySelector('.photo-status').hidden = false;
-      }
-      return;
-    }
+    incoming.src = product.image;
+    try { await incoming.decode(); } catch { return; }
     if (swaps.get(photo) !== token) return;
     if (!motionOff) {
       photo.style.opacity = '0';
       await new Promise(resolve => setTimeout(resolve, 140));
     }
     if (swaps.get(photo) !== token) return;
-    photo.src = source;
-    photo.alt = product.name + (design === 'table' ? ' на керамической тарелке на деревянном столе, вид сверху' : ' на керамической тарелке на терракотовом подиуме');
+    photo.src = product.image;
+    photo.alt = product.alt;
     photo.dataset.product = product.id;
     await photo.decode().catch(() => {});
     if (swaps.get(photo) !== token) return;
-    scene.style.setProperty('--product-photo', `url("${source}")`);
-    scene.classList.remove('photo-loading');
-    scene.querySelector('.photo-status').hidden = true;
     scene.querySelector('.photo-caption h3').textContent = product.name;
     scene.querySelector('.photo-caption p').textContent = product.tagline;
     scene.querySelector('.photo-price').textContent = product.price + ' ₽';
@@ -230,35 +210,11 @@
     scene.querySelector('.ingredient-text').textContent = product.ingredients;
     scene.querySelector('.allergen-text').textContent = product.allergens;
     scene.querySelector('.ingredients').open = false;
-    renderCompact(kind, product);
     for (const section of ['coffee', 'desserts']) updatePair(section, findProduct(section, selections[section]));
     changePhoto(kind, product);
   }
   for (const kind of ['coffee', 'desserts']) {
     const scene = document.getElementById(kind);
-    scene.insertAdjacentHTML('beforeend', `<div class="mobile-product-ui">
-      <div class="gallery-category"><label><span class="visually-hidden">Категория ${kind === 'coffee' ? 'кофе' : 'десертов'}</span><select aria-label="Категория ${kind === 'coffee' ? 'кофе' : 'десертов'}">${menu.categories[kind].map(c => `<option value="${c.id}">${escapeHTML(c.name)}</option>`).join('')}</select></label><span class="category-count"></span></div>
-      <div class="mobile-product-heading" aria-live="polite" aria-atomic="true"><p class="product-kicker">${kind === 'coffee' ? '02 / КОФЕ' : '03 / ДЕСЕРТЫ'}</p><h3></h3><p class="mobile-product-meta"></p></div>
-      <div class="mobile-product-bottom"><button class="details-trigger">Состав и сочетания <span aria-hidden="true">+</span></button><div class="product-filmstrip" role="group" aria-label="${kind === 'coffee' ? 'Выбрать кофе' : 'Выбрать десерт'}"></div><div class="product-arrows"><button data-step="-1" aria-label="Предыдущий продукт">←</button><span class="product-counter" aria-live="polite"></span><button data-step="1" aria-label="Следующий продукт">→</button></div><p class="mobile-demo">Примерное меню · цены уточняются</p></div>
-    </div><button class="photo-status" hidden></button>`);
-    scene.querySelector('.photo-status').addEventListener('click', () => changePhoto(kind, findProduct(kind, selections[kind])));
-    scene.querySelector('.gallery-category select').addEventListener('change', e => selectProduct(kind, menu.products[kind].find(p => p.category === e.target.value).id));
-    scene.querySelector('.product-filmstrip').addEventListener('click', e => {
-      const button = e.target.closest('[data-product]');
-      if (!button) return;
-      const id = button.dataset.product;
-      selectProduct(kind, id);
-      if (e.detail === 0) scene.querySelector(`.product-filmstrip [data-product="${id}"]`).focus({ preventScroll: true });
-    });
-    scene.querySelector('.product-arrows').addEventListener('click', e => {
-      const button = e.target.closest('[data-step]');
-      if (!button) return;
-      const current = findProduct(kind, selections[kind]);
-      const group = menu.products[kind].filter(p => p.category === current.category);
-      const next = (group.indexOf(current) + Number(button.dataset.step) + group.length) % group.length;
-      selectProduct(kind, group[next].id);
-    });
-    scene.querySelector('.details-trigger').addEventListener('click', () => showProductDetails(kind));
     scene.querySelector('.category-tabs').innerHTML = menu.categories[kind].map(category => '<button data-category="' + category.id + '" aria-pressed="false">' + escapeHTML(category.name) + '<span>' + menu.products[kind].filter(p => p.category === category.id).length + '</span></button>').join('');
     scene.querySelector('.category-tabs').addEventListener('click', e => {
       const button = e.target.closest('[data-category]');
@@ -284,73 +240,15 @@
       navigate(targetKind, e.detail === 0);
     });
   }
-  function renderCompact(kind, product) {
-    const scene = document.getElementById(kind);
-    scene.querySelector('.mobile-product-heading h3').textContent = product.name;
-    scene.querySelector('.mobile-product-meta').textContent = product.size + ' · ' + product.price + ' ₽';
-    scene.querySelector('.gallery-category select').value = product.category;
-    const group = menu.products[kind].filter(p => p.category === product.category);
-    scene.querySelector('.category-count').textContent = group.length + (kind === 'coffee' ? ' напитка' : ' десерта');
-    scene.querySelector('.product-counter').textContent = String(group.indexOf(product) + 1).padStart(2, '0') + ' / ' + String(group.length).padStart(2, '0');
-    const strip = scene.querySelector('.product-filmstrip');
-    strip.innerHTML = menu.products[kind].map(p => `<button data-product="${p.id}" aria-pressed="${p.id === product.id}" aria-label="${escapeHTML(p.name)}, ${p.price} рублей"><img src="${thumbFor(p)}" alt="" width="68" height="68" loading="lazy"><span>${escapeHTML(p.name)}</span></button>`).join('');
-    const selected = strip.querySelector('[aria-pressed="true"]');
-    if (mobile && design === 'table') requestAnimationFrame(() => strip.scrollTo({ left: selected.offsetLeft - (strip.clientWidth - selected.clientWidth) / 2, behavior: 'instant' }));
-  }
-  const productDialog = document.createElement('dialog');
-  productDialog.className = 'product-dialog';
-  productDialog.setAttribute('aria-labelledby', 'product-dialog-title');
-  productDialog.innerHTML = '<button class="dialog-close" aria-label="Закрыть подробности">×</button><div class="product-dialog-content"></div>';
-  document.body.append(productDialog);
-  function showProductDetails(kind) {
-    const product = findProduct(kind, selections[kind]);
-    const pairButton = document.getElementById(kind).querySelector('.pairing');
-    const pair = findProduct(opposite(kind), pairButton.dataset.pair);
-    productDialog.dataset.kind = kind;
-    productDialog.querySelector('.product-dialog-content').innerHTML = `<p class="eyebrow">${kind === 'coffee' ? 'ВАША ЧАШКА' : 'СЛАДКАЯ ПАУЗА'}</p><h2 id="product-dialog-title">${escapeHTML(product.name)}</h2><p class="dialog-product-price">${product.size} · ${product.price} ₽</p><p class="dialog-description">${escapeHTML(product.description)}</p><div class="dialog-ingredients"><h3>Состав</h3><p>${escapeHTML(product.ingredients)}</p><p><strong>Аллергены:</strong> ${escapeHTML(product.allergens)}</p></div><button class="dialog-pair" data-dialog-pair="${pair.id}"><img src="${thumbFor(pair)}" alt="" width="80" height="80"><span><small>${escapeHTML(pairButton.querySelector('small').textContent)}</small><strong>${escapeHTML(pair.name)}</strong><span>${escapeHTML(pairButton.querySelector('.pair-reason').textContent)}</span></span><span aria-hidden="true">↗</span></button><button class="dialog-offers">Все сочетания кофе и десертов <span aria-hidden="true">↗</span></button><p class="demo-note">Примерное меню · рецепты и цены уточняются</p>`;
-    openDialog(productDialog);
-  }
-  productDialog.addEventListener('click', e => {
-    const pair = e.target.closest('[data-dialog-pair]');
-    if (pair) {
-      const targetKind = opposite(productDialog.dataset.kind);
-      productDialog.close();
-      selectProduct(targetKind, pair.dataset.dialogPair, !!chosenOffer);
-      navigate(targetKind, e.detail === 0);
-    } else if (e.target.closest('.dialog-offers')) {
-      productDialog.close();
-      openDialog(offersDialog);
-    }
-  });
-  function syncDesign() {
-    document.documentElement.dataset.design = design;
-    document.querySelectorAll('[data-design]').forEach(button => {
-      if (button.tagName === 'BUTTON') button.setAttribute('aria-pressed', String(button.dataset.design === design));
-    });
-    for (const kind of ['coffee', 'desserts']) selectProduct(kind, selections[kind], true);
-    document.querySelectorAll('.offer-images img[data-thumb]').forEach(img => {
-      const product = Object.values(menu.products).flat().find(p => p.id === img.dataset.thumb);
-      img.src = thumbFor(product);
-    });
-  }
-  document.querySelectorAll('.design-switch button').forEach(button => button.addEventListener('click', () => {
-    if (design === button.dataset.design) return;
-    design = button.dataset.design;
-    try { localStorage.setItem('fox-coffee-design', design); } catch {}
-    const url = new URL(location.href);
-    url.searchParams.set('design', design);
-    history.replaceState(null, '', url);
-    syncDesign();
-  }));
   const offersDialog = document.querySelector('.offers-dialog');
   offersDialog.querySelector('.offer-grid').innerHTML = menu.offers.map(offer => {
     const coffee = findProduct('coffee', offer.coffee), dessert = findProduct('desserts', offer.dessert);
     const total = (coffee.price + dessert.price) * offer.count;
-    return '<article class="offer-card"><div class="offer-images"><img src="' + thumbFor(coffee) + '" data-thumb="' + coffee.id + '" alt="' + escapeHTML(coffee.name) + '"><img src="' + thumbFor(dessert) + '" data-thumb="' + dessert.id + '" alt="' + escapeHTML(dessert.name) + '"></div><h3>' + escapeHTML(offer.name) + '</h3><p>' + escapeHTML(offer.caption) + '</p><p class="offer-why"><span>ПОЧЕМУ ЭТО ВКУСНО ВМЕСТЕ</span>' + escapeHTML(offer.why) + '</p><div><strong>' + total + ' ₽</strong><span>' + (offer.count === 2 ? 'На двоих' : 'Напиток + десерт') + '</span></div><button data-offer="' + offer.id + '">Посмотреть сочетание <span aria-hidden="true">↗</span></button></article>';
+    return '<article class="offer-card"><div class="offer-images"><img src="' + coffee.image + '" alt="' + escapeHTML(coffee.name) + '"><img src="' + dessert.image + '" alt="' + escapeHTML(dessert.name) + '"></div><h3>' + escapeHTML(offer.name) + '</h3><p>' + escapeHTML(offer.caption) + '</p><p class="offer-why"><span>ПОЧЕМУ ЭТО ВКУСНО ВМЕСТЕ</span>' + escapeHTML(offer.why) + '</p><div><strong>' + total + ' ₽</strong><span>' + (offer.count === 2 ? 'На двоих' : 'Напиток + десерт') + '</span></div><button data-offer="' + offer.id + '">Посмотреть сочетание <span aria-hidden="true">↗</span></button></article>';
   }).join('');
   const minimumOffer = Math.min(...menu.offers.map(offer => (findProduct('coffee', offer.coffee).price + findProduct('desserts', offer.dessert).price) * offer.count));
   document.querySelectorAll('.offer-from').forEach(label => label.textContent = 'от ' + minimumOffer + ' ₽');
-  syncDesign();
+  for (const kind of ['coffee', 'desserts']) selectProduct(kind, selections[kind]);
   const visitDialog = document.querySelector('.visit-dialog');
   function openDialog(dialog) {
     dialog.showModal();
@@ -358,7 +256,7 @@
     document.documentElement.classList.add('dialog-open');
     vapor.update(false);
   }
-  for (const dialog of [offersDialog, visitDialog, productDialog]) {
+  for (const dialog of [offersDialog, visitDialog]) {
     dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
     dialog.addEventListener('close', () => {
       document.documentElement.classList.toggle('dialog-open', !!document.querySelector('dialog[open]'));
@@ -404,7 +302,7 @@
     navigate('coffee', e.detail === 0);
   });
   const preload = () => Object.values(menu.products).flat().forEach(product => {
-    const image = new Image(); image.src = thumbFor(product);
+    const image = new Image(); image.src = product.image;
   });
   if ('requestIdleCallback' in window) requestIdleCallback(preload, { timeout: 2000 }); else setTimeout(preload, 600);
   window.addEventListener('scroll', () => {
@@ -430,7 +328,6 @@
   stage.addEventListener('pointerdown', e => {
     if (mobile && e.isPrimary && e.pointerType !== 'mouse') suppressClickUntil = 0;
     if (!mobile || sceneTransition || e.pointerType === 'mouse' || !e.isPrimary || e.clientX < 24 || e.clientX > innerWidth - 24) return;
-    if (e.target.closest('.product-filmstrip,button,select,a')) return;
     gesture = { id: e.pointerId, x: e.clientX, y: e.clientY, start: performance.now(), direction: null };
   });
   stage.addEventListener('pointermove', e => {
